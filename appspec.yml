@@ -1,24 +1,15 @@
 version: 0.0
 os: linux
-
 files:
   - source: /
-    destination: /home/ec2-user/myapp
+    destination: /home/ec2-user/aws-codedeploy
 
 hooks:
   AfterInstall:
     - location: scripts/install_dependencies.sh
-      timeout: 300
       runas: ec2-user
-
+    - location: scripts/configure_nginx.sh
+      runas: ec2-user
   ApplicationStart:
-    - location: scripts/start_server.sh
-      timeout: 300
+    - location: scripts/start_flask.sh
       runas: ec2-user
-
-  ApplicationStop:
-    - location: scripts/stop_server.sh
-      timeout: 300
-      runas: ec2-user
-
-  
